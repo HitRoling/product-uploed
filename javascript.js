@@ -77,11 +77,14 @@ document.addEventListener("DOMContentLoaded", () => {
     adminLoginForm.addEventListener("submit", (e) => {
         e.preventDefault();
         const password = document.getElementById("adminPassword").value;
+        // Check if entered password matches the admin password
         if (password === ADMIN_PASSWORD) {
+            // If password is correct, show admin panel and hide login popup
             adminPopup.style.display = "none";
             adminPanel.style.display = "block";
             loadUsers();
         } else {
+            // If password is incorrect
             alert("Incorrect password!");
         }
     });
