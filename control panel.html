@@ -3,10 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Control Panel</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Admin Control Panel</title>
+    <style>
+        /* Basic Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        /* Admin Login Popup */
+        #adminPopup {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+        #adminPopup h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        #adminPopup input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+        #adminPopup button {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #adminPopup button:hover {
+            background-color: #45a049;
+        }
+
+        /* Admin Panel (After Successful Admin Login) */
+        #adminPanel {
+            display: none;
+            width: 80%;
+            max-width: 800px;
+            text-align: center;
+            padding: 30px;
+        }
+        #adminPanel h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        /* User Management Section */
+        #userList {
+            margin-top: 20px;
+            text-align: left;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .user-item {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+        }
+        .user-item h4 {
+            margin: 0;
+            font-size: 18px;
+            color: #333;
+        }
+        .user-item p {
+            font-size: 14px;
+            color: #666;
+        }
+        .action-buttons {
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .action-buttons button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .block-button {
+            background-color: #ff4d4d;
+            color: white;
+        }
+        .unblock-button {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .action-buttons button:hover {
+            opacity: 0.8;
+        }
+    </style>
 </head>
 <body>
+
+    <!-- Admin Login Popup -->
     <div id="adminPopup">
         <h2>Admin Login</h2>
         <form id="adminLoginForm">
@@ -15,9 +128,9 @@
         </form>
     </div>
 
-    <div id="adminPanel" style="display:none;">
-        <h2>Admin Panel</h2>
-        <h3>User Management</h3>
+    <!-- Admin Panel (Visible after login) -->
+    <div id="adminPanel">
+        <h2>Admin Control Panel</h2>
         <div id="userList"></div>
     </div>
 
