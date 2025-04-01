@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Control Panel</title>
+    <title>Control Panel</title>
     <style>
         /* Basic Reset */
         * {
@@ -21,7 +21,7 @@
             flex-direction: column;
         }
 
-        /* Admin Login Popup */
+        /* Control Panel Login */
         #adminPopup {
             background-color: #fff;
             border-radius: 8px;
@@ -57,68 +57,54 @@
             background-color: #45a049;
         }
 
-        /* Admin Panel (After Successful Admin Login) */
+        /* Admin Panel */
         #adminPanel {
             display: none;
-            width: 80%;
-            max-width: 800px;
             text-align: center;
-            padding: 30px;
+            width: 100%;
         }
         #adminPanel h2 {
             margin-bottom: 20px;
-            color: #333;
-        }
-
-        /* User Management Section */
-        #userList {
-            margin-top: 20px;
-            text-align: left;
-            max-width: 600px;
-            margin: 0 auto;
         }
         .user-item {
             background-color: #fff;
             padding: 15px;
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 15px;
+            width: 300px;
+            margin: 10px auto;
+            text-align: left;
         }
         .user-item h4 {
-            margin: 0;
+            margin-bottom: 10px;
             font-size: 18px;
             color: #333;
         }
-        .user-item p {
-            font-size: 14px;
-            color: #666;
-        }
-        .action-buttons {
-            margin-top: 10px;
-            display: flex;
-            justify-content: space-between;
-        }
         .action-buttons button {
-            padding: 8px 12px;
+            margin: 5px;
+            padding: 10px;
+            font-size: 14px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
         .block-button {
-            background-color: #ff4d4d;
+            background-color: #f44336;
             color: white;
+        }
+        .block-button:hover {
+            background-color: #d32f2f;
         }
         .unblock-button {
             background-color: #4CAF50;
             color: white;
         }
-        .action-buttons button:hover {
-            opacity: 0.8;
+        .unblock-button:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
-
     <!-- Admin Login Popup -->
     <div id="adminPopup">
         <h2>Admin Login</h2>
@@ -128,9 +114,9 @@
         </form>
     </div>
 
-    <!-- Admin Panel (Visible after login) -->
+    <!-- Admin Panel -->
     <div id="adminPanel">
-        <h2>Admin Control Panel</h2>
+        <h2>Manage Users</h2>
         <div id="userList"></div>
     </div>
 
