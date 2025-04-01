@@ -4,81 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Upload</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-        }
-        .popup {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .popup-content {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            width: 300px;
-            text-align: center;
-        }
-        h2 {
-            margin-bottom: 15px;
-        }
-        input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        button {
-            width: 100%;
-            padding: 10px;
-            background: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #0056b3;
-        }
-        .switch {
-            margin-top: 10px;
-            color: #007bff;
-            cursor: pointer;
-        }
-        .switch:hover {
-            text-decoration: underline;
-        }
-        #mainContent {
-            display: none;
-            margin-top: 50px;
-        }
-        .product-item {
-            background: white;
-            padding: 15px;
-            margin: 10px auto;
-            width: 300px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        img {
-            width: 100%;
-            border-radius: 5px;
-            margin-top: 10px;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -95,8 +21,8 @@
         </div>
     </div>
 
-    <!-- Main Content (Hidden until login) -->
-    <div id="mainContent">
+    <!-- Main Content -->
+    <div id="mainContent" style="display: none;">
         <h1>Upload Product</h1>
         <form id="uploadForm">
             <input type="text" id="productName" placeholder="Product Name" required>
@@ -108,64 +34,7 @@
         <div id="productList"></div>
     </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const authPopup = document.getElementById("authPopup");
-            const mainContent = document.getElementById("mainContent");
-            const authTitle = document.getElementById("authTitle");
-            const authForm = document.getElementById("authForm");
-            const toggleAuth = document.getElementById("toggleAuth");
-            let isLogin = true;
-
-            toggleAuth.addEventListener("click", () => {
-                isLogin = !isLogin;
-                authTitle.innerText = isLogin ? "Login" : "Sign Up";
-                authForm.innerHTML = `
-                    <input type="text" id="username" placeholder="Username" required>
-                    <input type="password" id="password" placeholder="Password" required>
-                    <button type="submit">${isLogin ? "Login" : "Sign Up"}</button>
-                `;
-                toggleAuth.innerText = isLogin ? "Don't have an account? Sign up" : "Already have an account? Login";
-            });
-
-            authForm.addEventListener("submit", (e) => {
-                e.preventDefault();
-                const username = document.getElementById("username").value;
-                const password = document.getElementById("password").value;
-
-                if (isLogin) {
-                    if (localStorage.getItem(username) === password) {
-                        alert("Login successful!");
-                        authPopup.style.display = "none";
-                        mainContent.style.display = "block";
-                    } else {
-                        alert("Invalid credentials.");
-                    }
-                } else {
-                    localStorage.setItem(username, password);
-                    alert("Signup successful! Please login.");
-                }
-            });
-
-            document.getElementById("uploadForm").addEventListener("submit", (e) => {
-                e.preventDefault();
-                const productName = document.getElementById("productName").value;
-                const productImage = document.getElementById("productImage").files[0];
-
-                if (productImage) {
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        const productList = document.getElementById("productList");
-                        const productDiv = document.createElement("div");
-                        productDiv.classList.add("product-item");
-                        productDiv.innerHTML = `<h3>${productName}</h3><img src="${e.target.result}">`;
-                        productList.appendChild(productDiv);
-                    };
-                    reader.readAsDataURL(productImage);
-                }
-            });
-        });
-    </script>
+    <script src="javascript.js"></script>
 
 </body>
 </html>
