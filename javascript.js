@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const productList = document.getElementById("productList");
 
     let isLogin = true;
-    const ADMIN_PASSWORD = "Ewald@Pret911"; // Updated admin password
+    const ADMIN_PASSWORD = "Ewald@Pret911"; // Admin password for control panel
 
     // Switch between login and signup
     toggleAuth.addEventListener("click", () => {
