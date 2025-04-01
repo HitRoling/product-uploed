@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Upload</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <style>
         /* Basic Reset */
         * {
@@ -12,110 +13,168 @@
             box-sizing: border-box;
         }
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f6f9;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             flex-direction: column;
+            color: #333;
         }
 
         /* Centered Popup */
         #authPopup {
             background-color: #fff;
             border-radius: 8px;
-            padding: 30px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            padding: 40px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            width: 320px;
             text-align: center;
+            transition: all 0.3s ease;
         }
+
         #authPopup h2 {
-            font-size: 24px;
-            margin-bottom: 20px;
+            font-size: 28px;
             color: #333;
+            margin-bottom: 30px;
         }
+
         #authPopup input {
             width: 100%;
-            padding: 12px;
+            padding: 15px;
             margin: 10px 0;
-            border-radius: 5px;
+            border-radius: 8px;
             border: 1px solid #ddd;
             font-size: 16px;
+            transition: border 0.3s ease;
         }
+
+        #authPopup input:focus {
+            border: 1px solid #4CAF50;
+        }
+
         #authPopup button {
             width: 100%;
-            padding: 12px;
+            padding: 15px;
             background-color: #4CAF50;
             color: white;
             border: none;
-            border-radius: 5px;
-            font-size: 16px;
+            border-radius: 8px;
+            font-size: 18px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
+
         #authPopup button:hover {
             background-color: #45a049;
         }
+
         #toggleAuth {
-            margin-top: 10px;
+            margin-top: 15px;
             color: #007bff;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 16px;
+        }
+
+        #toggleAuth:hover {
+            text-decoration: underline;
         }
 
         /* Main Content (after login) */
         #mainContent {
             display: none;
             text-align: center;
+            width: 100%;
         }
+
         #mainContent h2 {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            font-size: 32px;
+            color: #333;
         }
+
         #uploadForm input {
             width: 100%;
-            padding: 12px;
+            padding: 15px;
             margin: 10px 0;
-            border-radius: 5px;
+            border-radius: 8px;
             border: 1px solid #ddd;
             font-size: 16px;
+            transition: border 0.3s ease;
         }
+
+        #uploadForm input:focus {
+            border: 1px solid #4CAF50;
+        }
+
         #uploadForm button {
             width: 100%;
-            padding: 12px;
+            padding: 15px;
             background-color: #007bff;
             color: white;
             border: none;
-            border-radius: 5px;
-            font-size: 16px;
+            border-radius: 8px;
+            font-size: 18px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
+
         #uploadForm button:hover {
             background-color: #0056b3;
         }
+
         #productList {
-            margin-top: 20px;
+            margin-top: 30px;
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
             justify-content: center;
         }
+
         .product-item {
             background-color: #fff;
-            padding: 15px;
+            padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            width: 150px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            width: 240px;
             text-align: center;
+            transition: transform 0.3s ease;
         }
+
+        .product-item:hover {
+            transform: scale(1.05);
+        }
+
         .product-item img {
             width: 100%;
+            height: 180px;
+            object-fit: cover;
             border-radius: 8px;
         }
+
         .product-item h3 {
-            margin-top: 10px;
-            font-size: 16px;
+            margin-top: 15px;
+            font-size: 18px;
             color: #333;
+            font-weight: 500;
         }
+
+        /* Responsiveness */
+        @media (max-width: 768px) {
+            #authPopup {
+                width: 280px;
+            }
+            #mainContent {
+                width: 100%;
+                padding: 10px;
+            }
+            .product-item {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+
     </style>
 </head>
 <body>
