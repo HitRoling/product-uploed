@@ -12,6 +12,7 @@
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
             font-family: 'Roboto', sans-serif;
             background-color: #f4f6f9;
@@ -23,7 +24,7 @@
             color: #333;
         }
 
-        /* Centered Popup */
+        /* Popup Form */
         #authPopup {
             background-color: #fff;
             border-radius: 8px;
@@ -31,7 +32,7 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
             width: 320px;
             text-align: center;
-            transition: all 0.3s ease;
+            display: block;
         }
 
         #authPopup h2 {
@@ -81,55 +82,30 @@
             text-decoration: underline;
         }
 
-        /* Main Content (after login) */
+        /* Product Upload Section */
         #mainContent {
             display: none;
-            text-align: center;
             width: 100%;
+            max-width: 1200px;
+            margin: 30px;
+            text-align: center;
         }
 
         #mainContent h2 {
+            font-size: 30px;
             margin-bottom: 30px;
-            font-size: 32px;
-            color: #333;
         }
 
-        #uploadForm input {
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            font-size: 16px;
-            transition: border 0.3s ease;
-        }
-
-        #uploadForm input:focus {
-            border: 1px solid #4CAF50;
-        }
-
+        #uploadForm input,
         #uploadForm button {
-            width: 100%;
+            margin: 10px 0;
             padding: 15px;
-            background-color: #007bff;
-            color: white;
-            border: none;
             border-radius: 8px;
-            font-size: 18px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+            font-size: 16px;
         }
 
-        #uploadForm button:hover {
-            background-color: #0056b3;
-        }
-
-        #productList {
-            margin-top: 30px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
+        #uploadForm input[type="file"] {
+            margin-top: 15px;
         }
 
         .product-item {
@@ -137,69 +113,143 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            width: 240px;
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-
-        .product-item:hover {
-            transform: scale(1.05);
+            margin: 15px;
         }
 
         .product-item img {
             width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 8px;
+            max-width: 250px;
+            height: auto;
+            margin-bottom: 10px;
         }
 
         .product-item h3 {
-            margin-top: 15px;
-            font-size: 18px;
-            color: #333;
+            font-size: 20px;
             font-weight: 500;
-        }
-
-        /* Responsiveness */
-        @media (max-width: 768px) {
-            #authPopup {
-                width: 280px;
-            }
-            #mainContent {
-                width: 100%;
-                padding: 10px;
-            }
-            .product-item {
-                width: 100%;
-                margin-bottom: 20px;
-            }
+            color: #333;
         }
 
     </style>
 </head>
 <body>
-    <!-- Authentication Popup -->
+
+    <!-- Auth Popup -->
     <div id="authPopup">
-        <h2 id="authTitle">Login</h2>
+        <h2 id="authTitle">Sign In</h2>
         <form id="authForm">
             <input type="text" id="username" placeholder="Username" required>
             <input type="password" id="password" placeholder="Password" required>
-            <button type="submit">Login</button>
+            <button type="submit">Sign In</button>
         </form>
-        <p id="toggleAuth">Don't have an account? Sign up</p>
+        <div id="toggleAuth">
+            <p>Don't have an account? <span id="toggleToSignup">Sign Up</span></p>
+        </div>
     </div>
 
-    <!-- Main Content (Only visible after login) -->
+    <!-- Main Content (after login) -->
     <div id="mainContent">
-        <h2>Upload Products</h2>
+        <h2>Upload Product</h2>
         <form id="uploadForm">
             <input type="text" id="productName" placeholder="Product Name" required>
-            <input type="file" id="productImage" required>
-            <button type="submit">Upload</button>
+            <input type="file" id="productImage" accept="image/*" required>
+            <button type="submit">Upload Product</button>
         </form>
+
         <div id="productList"></div>
     </div>
 
     <script src="https://product-uploed.vercel.app/javascript.js"></script>
+    <script>
+        // Hardcoded data for testing purposes
+        let users = JSON.parse(localStorage.getItem('users')) || [];
+
+        // Toggle between login and signup form
+        const toggleAuthText = document.getElementById('toggleToSignup');
+        const authFormTitle = document.getElementById('authTitle');
+        const authForm = document.getElementById('authForm');
+        const toggleAuth = document.getElementById('toggleAuth');
+        let isSignup = false;
+
+        toggleAuthText.addEventListener('click', function () {
+            isSignup = !isSignup;
+            if (isSignup) {
+                authFormTitle.textContent = "Sign Up";
+                authForm.innerHTML = `
+                    <input type="text" id="username" placeholder="Username" required>
+                    <input type="password" id="password" placeholder="Password" required>
+                    <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+                    <button type="submit">Sign Up</button>
+                `;
+            } else {
+                authFormTitle.textContent = "Sign In";
+                authForm.innerHTML = `
+                    <input type="text" id="username" placeholder="Username" required>
+                    <input type="password" id="password" placeholder="Password" required>
+                    <button type="submit">Sign In</button>
+                `;
+            }
+        });
+
+        // Handle sign up / sign in
+        authForm.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword') ? document.getElementById('confirmPassword').value : '';
+
+            if (isSignup) {
+                // Sign Up
+                if (password === confirmPassword) {
+                    const userExists = users.some(user => user.username === username);
+                    if (userExists) {
+                        alert('User already exists!');
+                    } else {
+                        users.push({ username, password, isBlocked: false });
+                        localStorage.setItem('users', JSON.stringify(users));
+                        alert('Account created successfully!');
+                        showMainContent();
+                    }
+                } else {
+                    alert('Passwords do not match!');
+                }
+            } else {
+                // Sign In
+                const user = users.find(u => u.username === username);
+
+                if (user && user.password === password && !user.isBlocked) {
+                    alert('Login successful!');
+                    showMainContent();
+                } else if (user && user.isBlocked) {
+                    alert('Your account is blocked!');
+                } else {
+                    alert('Invalid credentials!');
+                }
+            }
+        });
+
+        // Show the main content after login/signup
+        function showMainContent() {
+            document.getElementById('authPopup').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'block';
+        }
+
+        // Handle product upload
+        document.getElementById('uploadForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const productName = document.getElementById('productName').value;
+            const productImage = document.getElementById('productImage').files[0];
+
+            if (productName && productImage) {
+                alert(`Product "${productName}" uploaded!`);
+
+                // Here you would save the product data to localStorage or a server.
+                console.log('Product uploaded:', productName, productImage.name);
+            } else {
+                alert('Please provide both product name and image!');
+            }
+        });
+    </script>
 </body>
 </html>
