@@ -99,6 +99,35 @@
             background-color: #e64a45;
         }
 
+        /* Password Form */
+        .password-form-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .password-form-container input {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 200px;
+        }
+
+        .password-form-container button {
+            padding: 10px 20px;
+            background-color: #ff9900;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .password-form-container button:hover {
+            background-color: #e68900;
+        }
     </style>
 </head>
 <body>
@@ -107,14 +136,27 @@
     <div class="panel-container">
         <h1>Control Panel</h1>
 
+        <!-- Password Form for Admin -->
+        <div id="passwordForm" class="password-form-container">
+            <input type="password" id="adminPassword" placeholder="Enter Password" />
+            <button id="loginButton">Login</button>
+        </div>
+
         <!-- Add User Form -->
-        <div class="form-container">
-            <input type="text" id="newUsername" placeholder="Enter username" required>
-            <input type="password" id="newPassword" placeholder="Enter password" required>
+        <div id="userForm" class="form-container" style="display:none;">
+            <input type="text" id="newUsername" placeholder="Enter username" required />
+            <input type="password" id="newPassword" placeholder="Enter password" required />
             <button id="addUserButton">Add User</button>
         </div>
 
-        <!-- List of Users -->
+        <!-- Change User Password Form -->
+        <div id="changePasswordForm" class="form-container" style="display:none;">
+            <input type="text" id="changeUsername" placeholder="Enter username to change password" required />
+            <input type="password" id="newUserPassword" placeholder="Enter new password" required />
+            <button id="changeUserPasswordButton">Change Password</button>
+        </div>
+
+        <!-- User List -->
         <div id="userList">
             <h3>Users:</h3>
             <div id="userListContainer"></div>
@@ -122,10 +164,13 @@
     </div>
 
     <script>
+        // Password for the control panel login
+        const adminPassword = 'Ewald@Pret911';
+
         // Get stored users or initialize empty array
         let users = JSON.parse(localStorage.getItem('users')) || [];
 
-        // Function to update and display users list
+        // Function to display the user list
         function updateUserList() {
             const userListContainer = document.getElementById('userListContainer');
             userListContainer.innerHTML = '';  // Clear the current list
@@ -139,6 +184,16 @@
                 `;
                 userListContainer.appendChild(userDiv);
             });
+        }
+
+        // Function to remove a user from the list
+        function removeUser(index) {
+            const confirmed = confirm('Are you sure you want to remove this user?');
+            if (confirmed) {
+                users.splice(index, 1); // Remove user from the array
+                localStorage.setItem('users', JSON.stringify(users)); // Update localStorage
+                updateUserList(); // Refresh the user list
+            }
         }
 
         // Function to add a new user
@@ -164,15 +219,38 @@
             }
         });
 
-        // Function to remove a user
-        function removeUser(index) {
-            const confirmed = confirm('Are you sure you want to remove this user?');
-            if (confirmed) {
-                users.splice(index, 1);
+        // Function to change a user's password
+        document.getElementById('changeUserPasswordButton').addEventListener('click', function () {
+            const username = document.getElementById('changeUsername').value;
+            const newPassword = document.getElementById('newUserPassword').value;
+
+            const user = users.find(u => u.username === username);
+            if (user) {
+                user.password = newPassword;
                 localStorage.setItem('users', JSON.stringify(users));
+                alert('Password changed successfully!');
+                document.getElementById('changeUsername').value = '';
+                document.getElementById('newUserPassword').value = '';
                 updateUserList(); // Refresh the user list
+            } else {
+                alert('User not found!');
             }
-        }
+        });
+
+        // Admin login to access the control panel features
+        document.getElementById('loginButton').addEventListener('click', function () {
+            const enteredPassword = document.getElementById('adminPassword').value;
+
+            if (enteredPassword === adminPassword) {
+                alert('Login successful!');
+                document.getElementById('passwordForm').style.display = 'none';
+                document.getElementById('userForm').style.display = 'block';
+                document.getElementById('changePasswordForm').style.display = 'block';
+                updateUserList(); // Show user list on login
+            } else {
+                alert('Incorrect password!');
+            }
+        });
 
         // Initial call to populate the user list
         updateUserList();
