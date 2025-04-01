@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Control Panel</title>
+    <title>Product Upload</title>
     <style>
         /* Basic Reset */
         * {
@@ -21,8 +21,8 @@
             flex-direction: column;
         }
 
-        /* Control Panel Login */
-        #adminPopup {
+        /* Centered Popup */
+        #authPopup {
             background-color: #fff;
             border-radius: 8px;
             padding: 30px;
@@ -30,12 +30,12 @@
             width: 300px;
             text-align: center;
         }
-        #adminPopup h2 {
+        #authPopup h2 {
             font-size: 24px;
             margin-bottom: 20px;
             color: #333;
         }
-        #adminPopup input {
+        #authPopup input {
             width: 100%;
             padding: 12px;
             margin: 10px 0;
@@ -43,7 +43,7 @@
             border: 1px solid #ddd;
             font-size: 16px;
         }
-        #adminPopup button {
+        #authPopup button {
             width: 100%;
             padding: 12px;
             background-color: #4CAF50;
@@ -53,71 +53,92 @@
             font-size: 16px;
             cursor: pointer;
         }
-        #adminPopup button:hover {
+        #authPopup button:hover {
             background-color: #45a049;
         }
+        #toggleAuth {
+            margin-top: 10px;
+            color: #007bff;
+            cursor: pointer;
+            font-size: 14px;
+        }
 
-        /* Admin Panel */
-        #adminPanel {
+        /* Main Content (after login) */
+        #mainContent {
             display: none;
             text-align: center;
-            width: 100%;
         }
-        #adminPanel h2 {
+        #mainContent h2 {
             margin-bottom: 20px;
         }
-        .user-item {
+        #uploadForm input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+        #uploadForm button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #uploadForm button:hover {
+            background-color: #0056b3;
+        }
+        #productList {
+            margin-top: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .product-item {
             background-color: #fff;
             padding: 15px;
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
-            margin: 10px auto;
-            text-align: left;
+            width: 150px;
+            text-align: center;
         }
-        .user-item h4 {
-            margin-bottom: 10px;
-            font-size: 18px;
+        .product-item img {
+            width: 100%;
+            border-radius: 8px;
+        }
+        .product-item h3 {
+            margin-top: 10px;
+            font-size: 16px;
             color: #333;
-        }
-        .action-buttons button {
-            margin: 5px;
-            padding: 10px;
-            font-size: 14px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        .block-button {
-            background-color: #f44336;
-            color: white;
-        }
-        .block-button:hover {
-            background-color: #d32f2f;
-        }
-        .unblock-button {
-            background-color: #4CAF50;
-            color: white;
-        }
-        .unblock-button:hover {
-            background-color: #45a049;
         }
     </style>
 </head>
 <body>
-    <!-- Admin Login Popup -->
-    <div id="adminPopup">
-        <h2>Admin Login</h2>
-        <form id="adminLoginForm">
-            <input type="password" id="adminPassword" placeholder="Enter Admin Password" required>
+    <!-- Authentication Popup -->
+    <div id="authPopup">
+        <h2 id="authTitle">Login</h2>
+        <form id="authForm">
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
             <button type="submit">Login</button>
         </form>
+        <p id="toggleAuth">Don't have an account? Sign up</p>
     </div>
 
-    <!-- Admin Panel -->
-    <div id="adminPanel">
-        <h2>Manage Users</h2>
-        <div id="userList"></div>
+    <!-- Main Content (Only visible after login) -->
+    <div id="mainContent">
+        <h2>Upload Products</h2>
+        <form id="uploadForm">
+            <input type="text" id="productName" placeholder="Product Name" required>
+            <input type="file" id="productImage" required>
+            <button type="submit">Upload</button>
+        </form>
+        <div id="productList"></div>
     </div>
 
     <script src="https://product-uploed.vercel.app/javascript.js"></script>
