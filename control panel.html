@@ -16,186 +16,166 @@
         body {
             font-family: 'Roboto', sans-serif;
             background-color: #f4f6f9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            flex-direction: column;
-            color: #333;
+            padding: 20px;
         }
 
-        /* Admin Login */
-        #adminPopup {
-            background-color: #fff;
-            border-radius: 8px;
-            padding: 40px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            width: 320px;
-            text-align: center;
-        }
-
-        #adminPopup h2 {
-            font-size: 28px;
-            color: #333;
-            margin-bottom: 30px;
-        }
-
-        #adminPopup input {
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            font-size: 16px;
-            transition: border 0.3s ease;
-        }
-
-        #adminPopup input:focus {
-            border: 1px solid #4CAF50;
-        }
-
-        #adminPopup button {
-            width: 100%;
-            padding: 15px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 18px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        #adminPopup button:hover {
-            background-color: #45a049;
-        }
-
-        #toggleAuth {
-            margin-top: 15px;
-            color: #007bff;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        #toggleAuth:hover {
-            text-decoration: underline;
-        }
-
-        /* Admin Panel */
-        #adminPanel {
-            display: none;
-            text-align: center;
+        /* Control Panel Container */
+        .panel-container {
             width: 100%;
             max-width: 1200px;
-            margin: 30px;
-        }
-
-        #adminPanel h2 {
-            margin-bottom: 30px;
-            font-size: 32px;
-            color: #333;
-        }
-
-        .user-item {
-            background-color: #fff;
+            margin: 0 auto;
             padding: 20px;
+            background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            width: 280px;
-            margin: 15px;
-            text-align: left;
-            transition: transform 0.3s ease;
         }
 
-        .user-item:hover {
-            transform: scale(1.05);
-        }
-
-        .user-item h4 {
-            margin-bottom: 10px;
-            font-size: 18px;
+        h1 {
+            font-size: 30px;
+            margin-bottom: 20px;
             color: #333;
-            font-weight: 500;
+            text-align: center;
         }
 
-        .user-item p {
-            font-size: 16px;
-            color: #666;
-            margin-bottom: 15px;
-        }
-
-        .user-actions {
+        /* Form Styling */
+        .form-container {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
+            margin-bottom: 20px;
         }
 
-        .user-actions button {
-            padding: 8px 15px;
+        .form-container input {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 200px;
+        }
+
+        .form-container button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 14px;
-            transition: background-color 0.3s ease;
+            font-size: 16px;
         }
 
-        .block-button {
-            background-color: #f44336;
-            color: white;
-        }
-
-        .block-button:hover {
-            background-color: #d32f2f;
-        }
-
-        .unblock-button {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        .unblock-button:hover {
+        .form-container button:hover {
             background-color: #45a049;
         }
 
-        .password-change-button {
-            background-color: #007bff;
+        /* User List */
+        #userList {
+            margin-top: 20px;
+        }
+
+        .user-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .user-item span {
+            font-size: 18px;
+        }
+
+        .remove-button {
+            padding: 5px 10px;
+            background-color: #ff4d4d;
             color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
         }
 
-        .password-change-button:hover {
-            background-color: #0056b3;
+        .remove-button:hover {
+            background-color: #e64a45;
         }
 
-        /* Responsiveness */
-        @media (max-width: 768px) {
-            #adminPanel {
-                width: 100%;
-                padding: 10px;
-            }
-
-            .user-item {
-                width: 100%;
-                margin-bottom: 20px;
-            }
-        }
     </style>
 </head>
 <body>
 
-    <!-- Admin Login Popup -->
-    <div id="adminPopup">
-        <h2>Admin Login</h2>
-        <form id="adminLoginForm">
-            <input type="password" id="adminPassword" placeholder="Enter Admin Password" required>
-            <button type="submit">Login</button>
-        </form>
+    <!-- Control Panel Container -->
+    <div class="panel-container">
+        <h1>Control Panel</h1>
+
+        <!-- Add User Form -->
+        <div class="form-container">
+            <input type="text" id="newUsername" placeholder="Enter username" required>
+            <input type="password" id="newPassword" placeholder="Enter password" required>
+            <button id="addUserButton">Add User</button>
+        </div>
+
+        <!-- List of Users -->
+        <div id="userList">
+            <h3>Users:</h3>
+            <div id="userListContainer"></div>
+        </div>
     </div>
 
-    <!-- Admin Panel -->
-    <div id="adminPanel">
-        <h2>Manage Users</h2>
-        <div id="userList"></div>
-    </div>
+    <script>
+        // Get stored users or initialize empty array
+        let users = JSON.parse(localStorage.getItem('users')) || [];
 
-    <script src="https://product-uploed.vercel.app/javascript.js"></script>
+        // Function to update and display users list
+        function updateUserList() {
+            const userListContainer = document.getElementById('userListContainer');
+            userListContainer.innerHTML = '';  // Clear the current list
+
+            users.forEach((user, index) => {
+                const userDiv = document.createElement('div');
+                userDiv.classList.add('user-item');
+                userDiv.innerHTML = `
+                    <span>${user.username}</span>
+                    <button class="remove-button" onclick="removeUser(${index})">Remove</button>
+                `;
+                userListContainer.appendChild(userDiv);
+            });
+        }
+
+        // Function to add a new user
+        document.getElementById('addUserButton').addEventListener('click', function () {
+            const username = document.getElementById('newUsername').value;
+            const password = document.getElementById('newPassword').value;
+
+            if (username && password) {
+                // Check if the username already exists
+                const userExists = users.some(user => user.username === username);
+                if (userExists) {
+                    alert('User already exists!');
+                } else {
+                    users.push({ username, password });
+                    localStorage.setItem('users', JSON.stringify(users));
+                    alert('User added successfully!');
+                    document.getElementById('newUsername').value = '';
+                    document.getElementById('newPassword').value = '';
+                    updateUserList(); // Refresh the user list
+                }
+            } else {
+                alert('Please enter both username and password!');
+            }
+        });
+
+        // Function to remove a user
+        function removeUser(index) {
+            const confirmed = confirm('Are you sure you want to remove this user?');
+            if (confirmed) {
+                users.splice(index, 1);
+                localStorage.setItem('users', JSON.stringify(users));
+                updateUserList(); // Refresh the user list
+            }
+        }
+
+        // Initial call to populate the user list
+        updateUserList();
+    </script>
 </body>
 </html>
