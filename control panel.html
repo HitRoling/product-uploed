@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Control Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <style>
         /* Basic Reset */
         * {
@@ -11,50 +12,73 @@
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f6f9;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             flex-direction: column;
+            color: #333;
         }
 
-        /* Control Panel Login */
+        /* Admin Login */
         #adminPopup {
             background-color: #fff;
             border-radius: 8px;
-            padding: 30px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
+            padding: 40px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            width: 320px;
             text-align: center;
         }
+
         #adminPopup h2 {
-            font-size: 24px;
-            margin-bottom: 20px;
+            font-size: 28px;
             color: #333;
+            margin-bottom: 30px;
         }
+
         #adminPopup input {
             width: 100%;
-            padding: 12px;
+            padding: 15px;
             margin: 10px 0;
-            border-radius: 5px;
+            border-radius: 8px;
             border: 1px solid #ddd;
             font-size: 16px;
+            transition: border 0.3s ease;
         }
+
+        #adminPopup input:focus {
+            border: 1px solid #4CAF50;
+        }
+
         #adminPopup button {
             width: 100%;
-            padding: 12px;
+            padding: 15px;
             background-color: #4CAF50;
             color: white;
             border: none;
-            border-radius: 5px;
-            font-size: 16px;
+            border-radius: 8px;
+            font-size: 18px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
+
         #adminPopup button:hover {
             background-color: #45a049;
+        }
+
+        #toggleAuth {
+            margin-top: 15px;
+            color: #007bff;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #toggleAuth:hover {
+            text-decoration: underline;
         }
 
         /* Admin Panel */
@@ -62,49 +86,101 @@
             display: none;
             text-align: center;
             width: 100%;
+            max-width: 1200px;
+            margin: 30px;
         }
+
         #adminPanel h2 {
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            font-size: 32px;
+            color: #333;
         }
+
         .user-item {
             background-color: #fff;
-            padding: 15px;
+            padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
-            margin: 10px auto;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            width: 280px;
+            margin: 15px;
             text-align: left;
+            transition: transform 0.3s ease;
         }
+
+        .user-item:hover {
+            transform: scale(1.05);
+        }
+
         .user-item h4 {
             margin-bottom: 10px;
             font-size: 18px;
             color: #333;
+            font-weight: 500;
         }
-        .action-buttons button {
-            margin: 5px;
-            padding: 10px;
-            font-size: 14px;
+
+        .user-item p {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .user-actions {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .user-actions button {
+            padding: 8px 15px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
         }
+
         .block-button {
             background-color: #f44336;
             color: white;
         }
+
         .block-button:hover {
             background-color: #d32f2f;
         }
+
         .unblock-button {
             background-color: #4CAF50;
             color: white;
         }
+
         .unblock-button:hover {
             background-color: #45a049;
+        }
+
+        .password-change-button {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .password-change-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Responsiveness */
+        @media (max-width: 768px) {
+            #adminPanel {
+                width: 100%;
+                padding: 10px;
+            }
+
+            .user-item {
+                width: 100%;
+                margin-bottom: 20px;
+            }
         }
     </style>
 </head>
 <body>
+
     <!-- Admin Login Popup -->
     <div id="adminPopup">
         <h2>Admin Login</h2>
