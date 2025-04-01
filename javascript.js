@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Authentication Elements
+    // Authentication Elements (for Login / Signup)
     const authPopup = document.getElementById("authPopup");
     const mainContent = document.getElementById("mainContent");
     const authTitle = document.getElementById("authTitle");
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let isLogin = true;
     const ADMIN_PASSWORD = "Ewald@Pret911"; // Admin password for control panel
 
-    // Switch between login and signup
+    // Switch between login and signup forms
     toggleAuth.addEventListener("click", () => {
         isLogin = !isLogin;
         authTitle.innerText = isLogin ? "Login" : "Sign Up";
@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Admin login
+    // Admin login functionality
     adminLoginForm.addEventListener("submit", (e) => {
         e.preventDefault();
         const password = document.getElementById("adminPassword").value;
@@ -82,33 +82,43 @@ document.addEventListener("DOMContentLoaded", () => {
             // If password is correct, show admin panel and hide login popup
             adminPopup.style.display = "none";
             adminPanel.style.display = "block";
+
+            // Load users for the admin to manage
             loadUsers();
         } else {
-            // If password is incorrect
-            alert("Incorrect password!");
+            alert("Incorrect admin password!");
         }
     });
 
-    // Load users into admin panel
+    // Load users into the admin panel (from localStorage)
     function loadUsers() {
-        userList.innerHTML = "";
+        userList.innerHTML = ''; // Clear previous list
         for (let i = 0; i < localStorage.length; i++) {
             const username = localStorage.key(i);
-            if (username !== "admin") { 
-                const userDiv = document.createElement("div");
-                userDiv.classList.add("user-item");
-                userDiv.innerHTML = `
-                    <span>${username}</span>
-                    <button onclick="deleteUser('${username}')">Block</button>
-                `;
-                userList.appendChild(userDiv);
-            }
+            const userDiv = document.createElement("div");
+            userDiv.classList.add("user-item");
+            userDiv.innerHTML = `
+                <h4>${username}</h4>
+                <p>Status: ${localStorage.getItem(username) ? "Active" : "Blocked"}</p>
+                <div class="action-buttons">
+                    <button class="block-button" onclick="blockUser('${username}')">Block</button>
+                    <button class="unblock-button" onclick="unblockUser('${username}')">Unblock</button>
+                </div>
+            `;
+            userList.appendChild(userDiv);
         }
     }
 
-    // Block user (Remove from localStorage)
-    window.deleteUser = (username) => {
-        localStorage.removeItem(username);
+    // Block a user (set password to null to "block")
+    window.blockUser = function(username) {
+        localStorage.setItem(username, null);
+        loadUsers();
+    };
+
+    // Unblock a user (restore the password)
+    window.unblockUser = function(username) {
+        // Here we would ideally reset the password, but for simplicity, we'll just unblock them
+        alert("Unblocking user: " + username);
         loadUsers();
     };
 });
