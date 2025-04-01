@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const productList = document.getElementById("productList");
 
     let isLogin = true;
-    const ADMIN_PASSWORD = "secureadmin"; // Change this password
+    const ADMIN_PASSWORD = "Ewald@Pret911"; // Updated admin password
 
     // Switch between login and signup
     toggleAuth.addEventListener("click", () => {
@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
             reader.onload = function (e) {
                 const productDiv = document.createElement("div");
                 productDiv.classList.add("product-item");
-                productDiv.innerHTML = `<h3>${productName}</h3><img src="${e.target.result}">`;
+                productDiv.innerHTML = `<h3>${productName}</h3><img src="${e.target.result}" width="100%">`;
                 productList.appendChild(productDiv);
             };
             reader.readAsDataURL(productImage);
